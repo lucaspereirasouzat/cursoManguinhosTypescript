@@ -19,8 +19,15 @@
     "typescript"
   ],
   "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "eslint": "^9.11.1",
+    "globals": "^15.9.0",
     "rimraf": "^6.0.1",
     "tsx": "^4.19.1",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.8.0"
+  },
+  "dependencies": {
+    "eslint-config-standard": "^17.1.0"
   }
 }
