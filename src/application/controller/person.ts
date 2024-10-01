@@ -1,9 +1,9 @@
-class Person {
+class PersonController {
     speak(name?: string) {
         return `Hello, ${name?.toUpperCase() ?? 'Fulano'}!`;
     }
 }
 
-const p = new Person();
+const p = new PersonController();
 p.speak('rodrigo');
 p.speak()
