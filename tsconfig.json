@@ -13,8 +13,10 @@
       "@/*": ["./src/*"],
       "@/tests/*": ["./tests/*"]
     },
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "types": ["vitest/importMeta"]
   },
+
   "include": ["src"],
   "exclude": ["node_modules"]
 }
