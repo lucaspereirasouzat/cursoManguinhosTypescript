@@ -14,9 +14,9 @@
       "@/tests/*": ["./tests/*"]
     },
     "noImplicitAny": true,
-    "types": ["vitest/importMeta"]
+    "types": ["vitest"]
   },
 
-  "include": ["src"],
+  "include": ["src", "tests"],
   "exclude": ["node_modules"]
 }

@@ -10,7 +10,8 @@
     "test": "vitest",
     "coverage": "vitest --coverage",
     "prepare": "husky",
-    "test:ci": "vitest run --silent"
+    "test:ci": "vitest run --silent",
+    "generate-barrel": "barrelsby -d ./src"
   },
   "type": "module",
   "author": "lucaspereiradesouzat@gmail.com",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@eslint/js": "^9.11.1",
     "@types/eslint__js": "^8.42.3",
+    "barrelsby": "^2.8.1",
     "eslint": "^9.11.1",
     "globals": "^15.9.0",
     "rimraf": "^6.0.1",
@@ -34,6 +36,7 @@
     "vitest": "^2.1.1"
   },
   "dependencies": {
+    "create-index": "^2.6.0",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "vite-tsconfig-paths": "^5.0.1"
