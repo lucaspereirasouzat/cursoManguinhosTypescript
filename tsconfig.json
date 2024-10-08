@@ -14,7 +14,8 @@
       "@/tests/*": ["./tests/*"]
     },
     "noImplicitAny": true,
-    "types": ["vitest"]
+    "types": ["vitest"],
+    "moduleResolution": "Bundler"
   },
 
   "include": ["src", "tests"],

@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-namespace */
 import {describe, it, expect} from 'vitest'
 import {FacebookAuthentication} from '@/domain/features/facebook-authentication'
 import { AuthenticationError } from '@/domain/errors/authentication'
+import { FacebookAuthenticationApi, LoadFacebookUserApi } from '@/data/contracts/apis'
 
 class FacebookAuthenticationService {
     constructor(private readonly loadFacebookUserApi: LoadFacebookUserApi) {
@@ -12,17 +12,7 @@ class FacebookAuthenticationService {
     }
 }
 
-interface LoadFacebookUserApi {
-    loadUserByToken: (token: FacebookAuthenticationApi.Params) => Promise<FacebookAuthenticationApi.Result>
-}
 
-namespace FacebookAuthenticationApi {
-    export type Params = {
-        token: string
-    }
-
-    export type Result = undefined
-}
 
 class LoadFacebookUserApiSpy implements LoadFacebookUserApi {
     token?: string
