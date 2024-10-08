@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 export interface LoadFacebookUserApi {
-    loadUserByToken: (token: FacebookAuthenticationApi.Params) => Promise<FacebookAuthenticationApi.Result>
+    loadUser: (token: FacebookAuthenticationApi.Params) => Promise<FacebookAuthenticationApi.Result>
 }
 
 export namespace FacebookAuthenticationApi {
