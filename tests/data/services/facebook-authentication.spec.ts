@@ -9,8 +9,7 @@ import {
 } from "@/data/contracts/repos/user-account";
 describe("FacebookAuthenticationService", () => {
   let loadFacebookUserApi: MockProxy<LoadFacebookUserApi>;
-  let loadUserAccountRepo: MockProxy<LoadUserAccountRepository>;
-  let createFacebookAccountRepo: MockProxy<CreateFacebookAccountRepository>;
+  let userAccountRepo: MockProxy<LoadUserAccountRepository & CreateFacebookAccountRepository>;
   let sut: FacebookAuthenticationService;
 
   const token = "any_token";
@@ -21,13 +20,11 @@ describe("FacebookAuthenticationService", () => {
       email: "any_fb_email",
       facebookId: "any_facebook_id",
     });
-    loadUserAccountRepo = mock();
+    userAccountRepo = mock();
 
-    createFacebookAccountRepo = mock();
     sut = new FacebookAuthenticationService(
       loadFacebookUserApi,
-      loadUserAccountRepo,
-      createFacebookAccountRepo
+      userAccountRepo
     );
   });
   it("load call LoadFacebookUserApi with correct params", async () => {
@@ -47,21 +44,21 @@ describe("FacebookAuthenticationService", () => {
   it("should return AuthenticationError when LoadFacebookUserApi returns data", async () => {
     await sut.perform({ token });
 
-    expect(loadUserAccountRepo.load).toBeCalledWith({
+    expect(userAccountRepo.load).toBeCalledWith({
       email: "any_fb_email",
     });
-    expect(loadUserAccountRepo.load).toBeCalledTimes(1);
+    expect(userAccountRepo.load).toBeCalledTimes(1);
   });
 
   it("should return CreateUserAccountRepo when LoadUserAccountRepo returns undefined", async () => {
-    loadUserAccountRepo.load.mockResolvedValueOnce(undefined);
+    userAccountRepo.load.mockResolvedValueOnce(undefined);
     await sut.perform({ token });
 
-    expect(createFacebookAccountRepo.createFromFacebook).toBeCalledWith({
+    expect(userAccountRepo.createFromFacebook).toBeCalledWith({
       name: "any_name",
       email: "any_fb_email",
       facebookId: "any_facebook_id",
     });
-    expect(createFacebookAccountRepo.createFromFacebook).toBeCalledTimes(1);
+    expect(userAccountRepo.createFromFacebook).toBeCalledTimes(1);
   });
 });
