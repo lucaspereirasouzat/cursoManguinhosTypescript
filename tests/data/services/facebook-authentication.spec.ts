@@ -8,14 +8,14 @@ import {
   LoadUserAccountRepository,
 } from "@/data/contracts/repos/user-account";
 describe("FacebookAuthenticationService", () => {
-  let loadFacebookUserApi: MockProxy<LoadFacebookUserApi>;
+  let facebookApi: MockProxy<LoadFacebookUserApi>;
   let userAccountRepo: MockProxy<LoadUserAccountRepository & CreateFacebookAccountRepository>;
   let sut: FacebookAuthenticationService;
 
   const token = "any_token";
   beforeEach(() => {
-    loadFacebookUserApi = mock();
-    loadFacebookUserApi.loadUser.mockResolvedValue({
+    facebookApi = mock();
+    facebookApi.loadUser.mockResolvedValue({
       name: "any_name",
       email: "any_fb_email",
       facebookId: "any_facebook_id",
@@ -23,20 +23,20 @@ describe("FacebookAuthenticationService", () => {
     userAccountRepo = mock();
 
     sut = new FacebookAuthenticationService(
-      loadFacebookUserApi,
+      facebookApi,
       userAccountRepo
     );
   });
   it("load call LoadFacebookUserApi with correct params", async () => {
     await sut.perform({ token });
 
-    expect(loadFacebookUserApi.loadUser).toBeCalledWith({
+    expect(facebookApi.loadUser).toBeCalledWith({
       token,
     });
-    expect(loadFacebookUserApi.loadUser).toBeCalledTimes(1);
+    expect(facebookApi.loadUser).toBeCalledTimes(1);
   });
   it("should return AuthenticationError when LoadFacebookUserApi returns undefined", async () => {
-    loadFacebookUserApi.loadUser.mockResolvedValueOnce(undefined);
+    facebookApi.loadUser.mockResolvedValueOnce(undefined);
     const result = await sut.perform({ token });
 
     expect(result).toEqual(new AuthenticationError());
