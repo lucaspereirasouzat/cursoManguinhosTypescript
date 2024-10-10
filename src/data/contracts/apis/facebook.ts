@@ -9,6 +9,7 @@ export namespace FacebookAuthenticationApi {
     }
 
     export type Result = undefined | {
+        id: string
         name: string
         email: string
         facebookId: string

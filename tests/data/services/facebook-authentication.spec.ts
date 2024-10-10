@@ -4,12 +4,12 @@ import { FacebookAuthenticationService } from "@/data/services";
 import { mock, MockProxy } from "vitest-mock-extended";
 import { LoadFacebookUserApi } from "@/data/contracts/apis";
 import {
-  CreateFacebookAccountRepository,
+  SaveFacebookAccountRepository,
   LoadUserAccountRepository,
 } from "@/data/contracts/repos/user-account";
 describe("FacebookAuthenticationService", () => {
   let facebookApi: MockProxy<LoadFacebookUserApi>;
-  let userAccountRepo: MockProxy<LoadUserAccountRepository & CreateFacebookAccountRepository>;
+  let userAccountRepo: MockProxy<LoadUserAccountRepository & SaveFacebookAccountRepository>;
   let sut: FacebookAuthenticationService;
 
   const token = "any_token";
@@ -54,11 +54,28 @@ describe("FacebookAuthenticationService", () => {
     userAccountRepo.load.mockResolvedValueOnce(undefined);
     await sut.perform({ token });
 
-    expect(userAccountRepo.createFromFacebook).toBeCalledWith({
+    expect(userAccountRepo.saveWithFacebook).toBeCalledWith({
       name: "any_name",
       email: "any_fb_email",
-      facebookId: "any_facebook_id",
+      facebookId: undefined,
+      id: undefined,
     });
-    expect(userAccountRepo.createFromFacebook).toBeCalledTimes(1);
+    expect(userAccountRepo.saveWithFacebook).toBeCalledTimes(1);
+  });
+
+  it("should return UpdateUserAccountRepo when LoadUserAccountRepo returns data", async () => {
+    userAccountRepo.load.mockResolvedValueOnce({
+        id: "any_id",
+        name: "any_name",
+    });
+    await sut.perform({ token });
+
+    expect(userAccountRepo.saveWithFacebook).toBeCalledWith({
+      id: "any_id",
+      name: "any_name",
+      facebookId: undefined,
+      email: "any_fb_email",
+    });
+    expect(userAccountRepo.saveWithFacebook).toBeCalledTimes(1);
   });
 });
