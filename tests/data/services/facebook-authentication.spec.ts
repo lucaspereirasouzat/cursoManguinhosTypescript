@@ -19,6 +19,7 @@ describe("FacebookAuthenticationService", () => {
       name: "any_name",
       email: "any_fb_email",
       facebookId: "any_facebook_id",
+      id: "any_id",
     });
     userAccountRepo = mock();
 
@@ -57,7 +58,7 @@ describe("FacebookAuthenticationService", () => {
     expect(userAccountRepo.saveWithFacebook).toBeCalledWith({
       name: "any_name",
       email: "any_fb_email",
-      facebookId: undefined,
+      facebookId: "any_facebook_id",
       id: undefined,
     });
     expect(userAccountRepo.saveWithFacebook).toBeCalledTimes(1);
@@ -73,7 +74,7 @@ describe("FacebookAuthenticationService", () => {
     expect(userAccountRepo.saveWithFacebook).toBeCalledWith({
       id: "any_id",
       name: "any_name",
-      facebookId: undefined,
+      facebookId: "any_facebook_id",
       email: "any_fb_email",
     });
     expect(userAccountRepo.saveWithFacebook).toBeCalledTimes(1);
