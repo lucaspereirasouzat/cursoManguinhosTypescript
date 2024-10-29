@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vitest, vi } from "vitest";
 import { AuthenticationError } from "@/domain/errors/authentication";
 import { FacebookAuthenticationService } from "@/data/services";
 import { mock, MockProxy } from "vitest-mock-extended";
@@ -7,6 +7,10 @@ import {
   SaveFacebookAccountRepository,
   LoadUserAccountRepository,
 } from "@/data/contracts/repos/user-account";
+// import { FacebookAccount } from "@/domain";
+
+// vitest.mock("@/domain/models/facebook-account")
+
 describe("FacebookAuthenticationService", () => {
   let facebookApi: MockProxy<LoadFacebookUserApi>;
   let userAccountRepo: MockProxy<LoadUserAccountRepository & SaveFacebookAccountRepository>;
@@ -79,4 +83,20 @@ describe("FacebookAuthenticationService", () => {
     });
     expect(userAccountRepo.saveWithFacebook).toBeCalledTimes(1);
   });
+
+  // it("should call SaveFacebookAccountRepository with FacebookAccount", () => {
+  //   const FacebookAccountStub = vitest.fn().mockImplementation(() => ({
+  //     any: 'any'
+  //   }));
+  //   vitest.mocked(FacebookAccount).mockImplementationOnce(FacebookAccountStub)
+  //   sut.perform({ token });
+
+  //   expect(userAccountRepo.saveWithFacebook).toBeCalledWith({
+  //     name: "any_name",
+  //     email: "any_fb_email",
+  //     facebookId: "any_facebook_id",
+  //     id: "any_id",
+  //   });
+  //   expect(userAccountRepo.saveWithFacebook).toBeCalledTimes(1);
+  // })
 });
