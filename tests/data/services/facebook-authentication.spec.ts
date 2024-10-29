@@ -7,13 +7,11 @@ import {
   SaveFacebookAccountRepository,
   LoadUserAccountRepository,
 } from "@/data/contracts/repos/user-account";
-// import { FacebookAccount } from "@/domain";
-
-// vitest.mock("@/domain/models/facebook-account")
-
+import { TokenGenerator } from "@/data/contracts/crypto/token-generator";
 describe("FacebookAuthenticationService", () => {
   let facebookApi: MockProxy<LoadFacebookUserApi>;
   let userAccountRepo: MockProxy<LoadUserAccountRepository & SaveFacebookAccountRepository>;
+  let crypto: MockProxy<TokenGenerator>;
   let sut: FacebookAuthenticationService;
 
   const token = "any_token";
@@ -26,10 +24,13 @@ describe("FacebookAuthenticationService", () => {
       id: "any_id",
     });
     userAccountRepo = mock();
-
+    userAccountRepo.saveWithFacebook.mockResolvedValue({ id: "any_id" });
+    crypto = mock();
+    crypto.generateToken.mockResolvedValue('any_generated_token');
     sut = new FacebookAuthenticationService(
       facebookApi,
-      userAccountRepo
+      userAccountRepo,
+      crypto
     );
   });
   it("load call LoadFacebookUserApi with correct params", async () => {
@@ -99,4 +100,13 @@ describe("FacebookAuthenticationService", () => {
   //   });
   //   expect(userAccountRepo.saveWithFacebook).toBeCalledTimes(1);
   // })
+
+    it("should call TokenGenerator with correct params", async () => {
+    await sut.perform({ token });
+
+    expect(crypto.generateToken).toBeCalledWith({
+      key: "any_id"
+    });
+    expect(crypto.generateToken).toBeCalledTimes(1);
+  });
 });
