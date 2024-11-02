@@ -8,6 +8,7 @@ import {
   LoadUserAccountRepository,
 } from "@/data/contracts/repos/user-account";
 import { TokenGenerator } from "@/data/contracts/crypto/token-generator";
+import { AccessToken } from "@/domain";
 describe("FacebookAuthenticationService", () => {
   let facebookApi: MockProxy<LoadFacebookUserApi>;
   let userAccountRepo: MockProxy<LoadUserAccountRepository & SaveFacebookAccountRepository>;
@@ -71,8 +72,8 @@ describe("FacebookAuthenticationService", () => {
 
   it("should return UpdateUserAccountRepo when LoadUserAccountRepo returns data", async () => {
     userAccountRepo.load.mockResolvedValueOnce({
-        id: "any_id",
-        name: "any_name",
+      id: "any_id",
+      name: "any_name",
     });
     await sut.perform({ token });
 
@@ -101,13 +102,19 @@ describe("FacebookAuthenticationService", () => {
   //   expect(userAccountRepo.saveWithFacebook).toBeCalledTimes(1);
   // })
 
-    it("should call TokenGenerator with correct params", async () => {
+  it("should return access token experation time ", async () => {
     await sut.perform({ token });
 
     expect(crypto.generateToken).toBeCalledWith({
       key: "any_id",
-      expirationInMs: 1800000,
+      expirationInMs: AccessToken.expirationInMs,
     });
     expect(crypto.generateToken).toBeCalledTimes(1);
+  });
+
+  it("should return access token on success", async () => {
+    const authResult = await sut.perform({ token });
+
+    expect(authResult).toEqual(new AccessToken('any_generated_token'));
   });
 });

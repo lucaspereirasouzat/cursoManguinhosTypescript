@@ -1,5 +1,5 @@
 export interface TokenGenerator {
-  generateToken: (params: TokenGenerator.Params) => Promise<void>;
+  generateToken: (params: TokenGenerator.Params) => Promise<TokenGenerator.Result>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -8,4 +8,5 @@ export namespace TokenGenerator {
     key: string;
     expirationInMs: number
   };
+  export type Result = string
 }
