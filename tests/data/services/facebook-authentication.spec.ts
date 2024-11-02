@@ -105,7 +105,8 @@ describe("FacebookAuthenticationService", () => {
     await sut.perform({ token });
 
     expect(crypto.generateToken).toBeCalledWith({
-      key: "any_id"
+      key: "any_id",
+      expirationInMs: 1800000,
     });
     expect(crypto.generateToken).toBeCalledTimes(1);
   });
