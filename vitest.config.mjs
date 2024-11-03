@@ -9,6 +9,7 @@ export default defineConfig({
     }
   },
   test: {
+    clearMocks: true, // Limpa mocks entre os testes
     globals: true, // Permite utilizar funções globais como `describe`, `it`
     environment: 'node', // Configuração do ambiente de teste (pode ser jsdom para apps web)
   

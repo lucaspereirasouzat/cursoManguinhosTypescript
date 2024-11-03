@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vitest, vi } from "vitest";
+import { describe, it, expect, beforeEach, beforeAll } from "vitest";
 import { AuthenticationError } from "@/domain/errors/authentication";
 import { FacebookAuthenticationService } from "@/data/services";
 import { mock, MockProxy } from "vitest-mock-extended";
@@ -15,8 +15,10 @@ describe("FacebookAuthenticationService", () => {
   let crypto: MockProxy<TokenGenerator>;
   let sut: FacebookAuthenticationService;
 
-  const token = "any_token";
-  beforeEach(() => {
+  let token: string;
+
+  beforeAll(() => {
+    token = "any_token";
     facebookApi = mock();
     facebookApi.loadUser.mockResolvedValue({
       name: "any_name",
@@ -28,6 +30,9 @@ describe("FacebookAuthenticationService", () => {
     userAccountRepo.saveWithFacebook.mockResolvedValue({ id: "any_id" });
     crypto = mock();
     crypto.generateToken.mockResolvedValue('any_generated_token');
+  })
+
+  beforeEach(() => {
     sut = new FacebookAuthenticationService(
       facebookApi,
       userAccountRepo,
@@ -150,5 +155,5 @@ describe("FacebookAuthenticationService", () => {
     await expect(promise).rejects.toThrow(new Error('token_error'));
   })
 
-  
+
 });
