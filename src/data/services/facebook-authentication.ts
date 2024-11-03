@@ -21,7 +21,6 @@ export class FacebookAuthenticationService implements FacebookAuthentication {
                 key: id,
                 expirationInMs: AccessToken.expirationInMs
             })
-            console.log(token)
             return new AccessToken(token)
         }
         return new AuthenticationError()
