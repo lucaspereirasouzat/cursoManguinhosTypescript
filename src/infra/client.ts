@@ -1,5 +1,5 @@
 export interface HttpGetClient {
-  get: (params: HttpGetClient.Params) => Promise<void>;
+  get: (params: HttpGetClient.Params) => Promise<HttpGetClient.Result>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -8,4 +8,6 @@ export namespace HttpGetClient {
     url: string;
     params: object;
   };
+
+  export type Result = any;
 }
