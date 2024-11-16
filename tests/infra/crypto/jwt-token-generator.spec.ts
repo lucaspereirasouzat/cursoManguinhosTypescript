@@ -1,19 +1,8 @@
-import { TokenGeneratorParams, TokenGeneratorResult } from '@/data/contracts/crypto';
+import { JwtTokenGenerator } from '@/infra/crypto/jwt-token-generator';
 import jwt from 'jsonwebtoken'
 import { Mocked } from 'vitest';
 
 vitest.mock('jsonwebtoken')
-
-const ONE_SECOND_IN_MILLISECONDS = 1000
-
-class JwtTokenGenerator {
-    constructor(private readonly secret: string) {}
-
-    async generateToken(params: TokenGeneratorParams): Promise<TokenGeneratorResult> {
-        const expirationInMs = params.expirationInMs / ONE_SECOND_IN_MILLISECONDS;
-        return jwt.sign({ key: params.key }, this.secret, { expiresIn: expirationInMs });
-    }
-}
 
 describe('JwtTokenGenerator', () => {
     let fakeJwt: Mocked<typeof jwt>
