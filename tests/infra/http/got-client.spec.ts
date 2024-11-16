@@ -10,13 +10,25 @@ class GotHttpClient {
 }
 
 describe("GotHttpClient", () => {
+  let sut: GotHttpClient;
+  let fakeGot: typeof got;
+  let url: string
+  let params: Record<string, string>
+  
+  beforeAll(() => {
+    url = "any_url"
+    params = { any: "any" }
+      fakeGot = got as typeof got
+  })
+
+  beforeEach(() => {
+    sut = new GotHttpClient();
+  })
   describe("get", () => {
     it("should call got with correct params", async () => {
-      const fakeGot = got as typeof got
-      const sut = new GotHttpClient();
-      await sut.get({ url: "any_url", params: { any: "any" } });
+      await sut.get({ url, params });
 
-      expect(fakeGot.get).toHaveBeenCalledWith("any_url", { searchParams: new URLSearchParams({ any: "any" }) });
+      expect(fakeGot.get).toHaveBeenCalledWith(url, { searchParams: new URLSearchParams(params) });
     });
   });
 });
