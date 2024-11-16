@@ -43,5 +43,12 @@ describe("GotHttpClient", () => {
 
       expect(result).toEqual('any_data');
     });
+
+    it("should rethrow if get throws", async () => {
+      fakeGot.get.mockRejectedValueOnce(new Error('any_error'))
+      const promise = sut.get({ url, params });
+
+      void expect(promise).rejects.toThrow(new Error('any_error'))
+    });
   });
 });
