@@ -22,6 +22,7 @@ describe('JwtTokenGenerator', () => {
 
     beforeAll(() => {
         fakeJwt = jwt as Mocked<typeof jwt>
+        fakeJwt.sign.mockImplementation(() => 'any_token')
         secret = 'secret'
     })
     beforeEach(() => {
@@ -31,5 +32,10 @@ describe('JwtTokenGenerator', () => {
     it('should call sign with correct params', async () => {
         await sut.generateToken({key: 'any_key', expirationInMs: 1000});
         expect(fakeJwt.sign).toHaveBeenCalledWith({ key: 'any_key' }, 'secret', {expiresIn: 1});
+    });
+
+    it('should return a token', async () => {
+        const token = await sut.generateToken({key: 'any_key', expirationInMs: 1000});
+        expect(token).toBe('any_token');
     });
 });
