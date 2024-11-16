@@ -1,4 +1,4 @@
-import { HttpGetClient } from "../client";
+import { HttpGetClient } from "../http/client";
 import { FacebookAuthenticationApiParams, FacebookAuthenticationApiResult, LoadFacebookUserApi } from "@/data/contracts/apis";
 
 type AppToken = {

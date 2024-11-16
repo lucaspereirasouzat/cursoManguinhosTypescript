@@ -1,15 +1,8 @@
-import { HttpGetClientParams } from "@/infra";
+import { GotHttpClient } from "@/infra/http/got-client";
 import got from "got";
 import { Mocked } from "vitest";
 vi.mock("got");
 
-class GotHttpClient {
-  async get(args: HttpGetClientParams): Promise<any> {
-    const searchParams = new URLSearchParams(args?.params);
-    const result = await got.get(args.url, { searchParams });
-    return result.body;
-  }
-}
 
 describe("GotHttpClient", () => {
   let sut: GotHttpClient;
