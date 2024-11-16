@@ -1,5 +1,5 @@
 import { HttpGetClient } from "../client";
-import { LoadFacebookUserApi } from "@/data/contracts/apis";
+import { FacebookAuthenticationApiParams, FacebookAuthenticationApiResult, LoadFacebookUserApi } from "@/data/contracts/apis";
 
 type AppToken = {
   access_token: string;
@@ -21,8 +21,8 @@ export class FacebookApi implements LoadFacebookUserApi {
     private readonly clientSecret: string
   ) {}
   async loadUser(
-    params: LoadFacebookUserApi.Params
-  ): Promise<LoadFacebookUserApi.Result> {
+    params: FacebookAuthenticationApiParams
+  ): Promise<FacebookAuthenticationApiResult> {
     const userInfo = await this.getUserInfo(params.token);
 
     return {

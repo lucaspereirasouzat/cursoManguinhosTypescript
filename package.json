@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "create-index": "^2.6.0",
+    "got": "^14.4.4",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "vite-tsconfig-paths": "^5.0.1"
