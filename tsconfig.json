@@ -9,6 +9,7 @@
     "forceConsistentCasingInFileNames": true,
     "strictFunctionTypes": true,
     "sourceMap": true,
+    "noNamespace": false,
     "paths": {
       "@/*": ["./src/*"],
       "@/tests/*": ["./tests/*"]
