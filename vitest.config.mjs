@@ -10,7 +10,8 @@ export default defineConfig({
   },
   test: {
     coverage: {
-      exclude: ['node_modules', 'tests', '**/index.ts', "**/*.mjs", "**/*.js"] // Exclui node_modules e tests da cobertura
+      exclude: ['node_modules', 'tests',"src/main/*", '**/index.ts'],
+      include: ['src/**/*.ts'],
     },
     clearMocks: true, // Limpa mocks entre os testes
     globals: true, // Permite utilizar funções globais como `describe`, `it`
