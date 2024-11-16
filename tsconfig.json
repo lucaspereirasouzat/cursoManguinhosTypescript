@@ -9,16 +9,14 @@
     "forceConsistentCasingInFileNames": true,
     "strictFunctionTypes": true,
     "sourceMap": true,
-    "noNamespace": false,
     "paths": {
       "@/*": ["./src/*"],
       "@/tests/*": ["./tests/*"]
     },
     "noImplicitAny": true,
-    "types": ["vitest"],
+    "types": ["vitest", "vitest/globals", "node"],
     "moduleResolution": "Bundler"
   },
-
   "include": ["src", "tests"],
   "exclude": ["node_modules"]
 }

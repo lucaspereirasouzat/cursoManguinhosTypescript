@@ -1,6 +1,4 @@
 import { FacebookAccount } from "@/domain";
-import { describe, expect, it } from "vitest";
-
 describe("FacebookAccount", () => {
     const fbData = {
         name: "any_name",

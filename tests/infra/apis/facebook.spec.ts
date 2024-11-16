@@ -1,6 +1,5 @@
 import { FacebookApi } from "@/infra/apis";
 import { HttpGetClient } from "@/infra/client";
-import { beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { mock, MockProxy } from "vitest-mock-extended";
 
 describe("FacebookApi", () => {

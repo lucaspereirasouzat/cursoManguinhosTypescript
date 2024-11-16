@@ -1,4 +1,3 @@
-import { describe, it, expect, beforeEach, beforeAll } from "vitest";
 import { AuthenticationError } from "@/domain/errors/authentication";
 import { FacebookAuthenticationService } from "@/data/services";
 import { mock, MockProxy } from "vitest-mock-extended";

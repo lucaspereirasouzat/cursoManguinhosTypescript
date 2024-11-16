@@ -1,5 +1,4 @@
 import { PersonController } from '@/application/controller/person';
-import { expect, it, describe } from 'vitest';
 
 describe('should return a greeting message', () => {
     it('should return a greeting message', () => {
